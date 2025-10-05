@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { Header } from "@/components/Header";
 import { BotCard } from "@/components/BotCard";
-import { ConsoleSidebar } from "@/components/ConsoleSidebar";
 import { ConsoleView } from "@/components/ConsoleView";
 import { FTPWindow } from "@/components/FTPWindow";
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
-import { Button } from "@/components/ui/button";
-import { HardDrive } from "lucide-react";
 
 interface Bot {
   id: string;
@@ -98,16 +96,15 @@ const Index = () => {
   const activeBot = bots.find((bot) => bot.id === activeConsoleId);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      <div className="flex flex-1 overflow-hidden">
-        <ConsoleSidebar
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar
           bots={bots}
           activeConsoleId={activeConsoleId}
           onSelectConsole={setActiveConsoleId}
           onFtpClick={() => setFtpOpen(true)}
         />
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <SidebarInset className="flex-1 overflow-hidden">
           {activeConsoleId && activeBot ? (
             <ConsoleView botName={activeBot.name} botId={activeBot.id} />
           ) : (
@@ -135,10 +132,10 @@ const Index = () => {
               </div>
             </main>
           )}
-        </div>
+        </SidebarInset>
+        <FTPWindow open={ftpOpen} onOpenChange={setFtpOpen} />
       </div>
-      <FTPWindow open={ftpOpen} onOpenChange={setFtpOpen} />
-    </div>
+    </SidebarProvider>
   );
 };
 
