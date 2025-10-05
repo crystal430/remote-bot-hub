@@ -1,7 +1,8 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Terminal } from "lucide-react";
+import { Terminal, HardDrive } from "lucide-react";
 
 interface Bot {
   id: string;
@@ -15,12 +16,14 @@ interface ConsoleSidebarProps {
   bots: Bot[];
   activeConsoleId: string | null;
   onSelectConsole: (id: string) => void;
+  onFtpClick: () => void;
 }
 
 export const ConsoleSidebar = ({
   bots,
   activeConsoleId,
   onSelectConsole,
+  onFtpClick,
 }: ConsoleSidebarProps) => {
   return (
     <div className="w-16 bg-card border-r border-border flex flex-col">
@@ -51,6 +54,16 @@ export const ConsoleSidebar = ({
           ))}
         </div>
       </ScrollArea>
+      <div className="p-2 border-t border-border">
+        <Button
+          onClick={onFtpClick}
+          size="icon"
+          variant="outline"
+          className="w-full h-12"
+        >
+          <HardDrive className="h-5 w-5" />
+        </Button>
+      </div>
     </div>
   );
 };

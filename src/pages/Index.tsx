@@ -105,6 +105,7 @@ const Index = () => {
           bots={bots}
           activeConsoleId={activeConsoleId}
           onSelectConsole={setActiveConsoleId}
+          onFtpClick={() => setFtpOpen(true)}
         />
         <div className="flex-1 flex flex-col overflow-hidden">
           {activeConsoleId && activeBot ? (
@@ -134,16 +135,6 @@ const Index = () => {
               </div>
             </main>
           )}
-          <div className="border-t border-border p-4 bg-card">
-            <Button
-              onClick={() => setFtpOpen(true)}
-              className="w-full"
-              variant="outline"
-            >
-              <HardDrive className="mr-2 h-4 w-4" />
-              FTP File Manager
-            </Button>
-          </div>
         </div>
       </div>
       <FTPWindow open={ftpOpen} onOpenChange={setFtpOpen} />
