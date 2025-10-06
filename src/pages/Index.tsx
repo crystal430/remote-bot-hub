@@ -3,6 +3,7 @@ import { BotCard } from "@/components/BotCard";
 import { ConsoleView } from "@/components/ConsoleView";
 import { FTPWindow } from "@/components/FTPWindow";
 import { AppSidebar } from "@/components/AppSidebar";
+import { StatsPanel } from "@/components/StatsPanel";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 
@@ -94,6 +95,9 @@ const Index = () => {
   };
 
   const activeBot = bots.find((bot) => bot.id === activeConsoleId);
+  
+  const localBots = bots.filter((b) => b.location === "local").length;
+  const remoteBots = bots.filter((b) => b.location === "remote").length;
 
   return (
     <SidebarProvider>
@@ -133,6 +137,12 @@ const Index = () => {
             </main>
           )}
         </SidebarInset>
+        <StatsPanel 
+          localBots={localBots}
+          remoteBots={remoteBots}
+          activeUsers={12}
+          totalUsers={48}
+        />
         <FTPWindow open={ftpOpen} onOpenChange={setFtpOpen} />
       </div>
     </SidebarProvider>
